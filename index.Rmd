@@ -1,0 +1,52 @@
+---
+title       : Data Products Assignment       
+subtitle    : Just some slides to show I can work with slidify 
+author      : Reza        
+job         : Learn
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Summary
+
+I used the "mtcars" dataset in R to predict the MPG of a given car based on the number of cylinders, weight and number of gears.
+
+--- .class #id 
+
+## Loading the data and model fitting
+
+- First the data are added to R
+```{r}
+data("mtcars")
+```
+
+- Now we take a look at its first rows
+```{r echo=F}
+head(mtcars)
+```
+
+- From these I use 'cyl': Number of cylinders, 'wt': wight in 1000 lbs and 'gear': Number of gears for prediction.
+
+---
+## Fitting the model
+- Now I fit a linear regression model with 'mpg' as regressor and 'cyl', 'wt' and 'gear' as predictors.
+```{r}
+fit <- lm(mpg ~ cyl + wt + gear, data = mtcars)
+```
+
+---
+## Checking for the validity
+- As the final step, to check the validity of the model, I draw a residual plot to see there is no special trend in residuals.
+
+```{r echo=F, message=F, warning=FALSE, fig.height=4}
+library(ggplot2)
+qplot(predict(fit),resid(fit), xlab = "Fitted values", ylab = "Residuals", main = "Residual plot") + geom_hline(yintercept = 0, color="red")
+```
+
+- To use this prediction go to 
+
+https://srhumir.shinyapps.io/Shinysimplefunction/
